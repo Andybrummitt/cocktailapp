@@ -1,0 +1,70 @@
+.randomise {
+    display: block;
+    margin: 1rem auto;
+    font-size: 2rem;
+    padding: 0.5rem;
+    background: #3bc73a;
+    border-radius: 0.5rem;
+    font-family: $caps-font;
+    color: white;
+    border: 0.2rem solid black;
+    cursor: pointer;
+}
+
+.randomise:active, 
+.randomise:hover {
+    background: #45e344;
+}
+
+.cocktail-container {
+    background:  #68C5DB;
+    width: 90%;
+    margin: auto;
+    @include flexCenter(column);
+    padding: 1rem;
+    font-family: $main-font;
+    max-width: 800px;
+}
+
+.cocktail-container h1 {
+    text-align: center;
+    font-family: $caps-font;
+    font-size: 2.5rem;
+    color: white;
+    background: $red;
+    padding: 0 1rem;
+    border: 0.2rem solid white;
+    margin-bottom: 0.3rem;
+}
+
+.cocktail-container i {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+}
+
+.alcoholic-flag {
+    font-family: $caps-font;
+    font-size: 1.5rem;
+}
+
+.thumb-img {
+    height: 60%;
+    width: 60%;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+}
+
+.ingredients-list {
+    list-style-type: none;
+    background: white;
+    width: 90%;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.ingredients-list li {
+    border-bottom: 1px dashed blue;
+    padding: 0.2rem;
+    font-size: 1.2rem;
+    font-family: $cursive-font;
+}

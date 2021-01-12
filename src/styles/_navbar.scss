@@ -1,0 +1,194 @@
+.nav-container {
+    height: 80px;
+    width: 100vw;
+    background: $dark-blue;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.title {
+    font-family: $title-font;
+    color: $light-blue;
+    font-size: 2rem;
+}
+
+.title a {
+    text-decoration: none;
+    color: $light-blue;
+}
+
+.title a:hover {
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+.navbar-main {
+    @include flexCenter(row);
+    justify-content: space-between;
+    padding: 0.5rem;
+    height: 100%;
+}
+
+//  -------------------- HB MENU ------------------------
+
+#hb-container {
+    height: 64px;
+    width: 64px;
+    background: $dark-blue;
+    border: 2px solid $light-blue;
+    border-radius: 0.5rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-open :nth-child(2) {
+    display: none;
+}
+
+.menu-open :nth-child(1) {
+    transform: translateY(15px) translateX(-50%) rotate(45deg);
+    background: $red;
+}
+
+.menu-open :nth-child(3) {
+    transform: translateY(-15px) translateX(-50%) rotate(-45deg);
+    background: $red;
+}
+
+.bar {
+    height: 6px;
+    width: 48px;
+    background: $light-blue;
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#hb-container div:nth-child(1){
+    top: 12px;
+    
+}
+
+#hb-container div:nth-child(2){
+    top: 27px;
+    
+}
+
+#hb-container div:nth-child(3){
+    top: 42px;
+    
+}
+
+// -------------------- NAV LINKS ------------------    
+
+#nav-links {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: $dark-blue;
+    list-style-type: none;
+    transform: translateX(0);
+    transition: 0.35s;
+}
+
+.nav-link {
+    @include flexCenter(row);
+}
+
+.nav-link a {
+    display: inline-block;
+    padding: 0.5rem;
+    text-align: center;
+    width: 95%;
+    margin: auto;
+    font-size: 1.3rem;
+    text-decoration: none;
+    font-family: $caps-font;
+    color: white;
+    border-top: 1px solid $light-blue;
+}
+
+.nav-link:hover, .nav-link:active {
+    transition: 0.25s;
+    background: $red;
+}
+
+.hide-links {
+    transform: translateX(-100%) !important;
+}
+
+@media screen and (max-height: 400px){
+    #nav-links {
+        @include flexCenter(row);
+        flex-wrap: wrap;
+    }
+    #nav-links * {
+        flex: 50%;
+    }
+    #nav-links a:nth-child(odd){
+        border-right: 1px solid $light-blue;
+    }
+}
+
+@media screen and (min-width: 500px){
+    .title {
+        font-size: 3.5rem;
+        margin-right: 3rem;
+    }
+}
+
+@media screen and (min-width: 1000px){
+    .nav-link a {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (min-width: 1420px){
+    #hb-container {
+        display: none;
+    }
+    #nav-links {
+        position: static;
+        transform: translateX(0);
+        @include flexCenter(row);
+        justify-content: space-between;
+        height: 100%;
+        max-width: 1800px;
+        width: 100%;
+    }
+    .nav-link {
+        height: 80%;
+        width: 100%;
+        @include flexCenter(column);
+        list-style-type: none;
+        border-left: 1px solid $light-blue;
+    }
+    .nav-link a {
+        color: $light-blue;
+        display: inline-block;
+        text-align: justify;
+        text-decoration: none;
+        font-size: 1.3rem;
+        padding: 1rem;
+        font-family: $title-font;
+        border-top: none;
+    }
+    .nav-link a:hover {
+        transform: scale(1.1);
+        color: white;
+        transition: 0.25s;
+        background: transparent;
+    }
+    .hide-links {
+        transform: translateX(0) !important;
+    }
+    .nav-link:hover, .nav-link:active {
+        background: transparent;
+    }
+}
+
