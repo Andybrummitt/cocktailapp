@@ -1,19 +1,17 @@
 import '../styles/main.scss';
 import { home } from './routes/home-route.js';
 import { whatCanIMake } from './routes/whatcanimake-route.js';
-import { searchByAlcohol } from './routes/searchbyalcohol-route.js';
-import { searchByMixer } from './routes/searchbymixer-route.js';
+import { searchByIngredient } from './routes/searchbyingredient-route.js';
 import { randomCocktail } from './routes/randomcocktail-route.js';
 import { easiestCocktails } from './routes/easiestcocktail-route.js';
 import { searchByName } from './routes/searchbyname-route.js';
 import './nav-functionality.js'
 
 const routes = {
-    '/' : home,
+    '/' : searchByName,
     '/whatcanimake': whatCanIMake,
-    '/searchbyname': searchByName,
-    '/searchbyalcohol': searchByAlcohol,
-    '/searchbymixer': searchByMixer,
+    '/searchbyingredient': searchByIngredient,
+    '/searchbyname': home,
     '/easiestcocktails': easiestCocktails,
     '/randomcocktail': randomCocktail
   };

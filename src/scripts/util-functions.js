@@ -61,6 +61,34 @@ const hasClass = (elem, className) => elem.classList.contains(className);
 const addClassToEl = (elem, className) => elem.classList.add(className);
 const removeClassFromEl = (elem, className) => elem.classList.remove(className);
 
+const addLoading = (section) => {
+    const loadingHTML =
+    `<h1 class="loading-h1">Loading...</h1>
+    <div id="logo-container" class="animate-loading">
+            <div id="glass-container">
+                <div id="top-glass"></div>
+                <div id="middle-glass"></div>
+                <div id="bottom-glass"></div>
+            </div>
+        </div>`  
+        section.innerHTML = loadingHTML;
+};
+const removeLoading = section => section.innerHTML = '';
 
+const filterDrinksByInput = (parsedInput, allDrinks) => {
+    return allDrinks.filter(drink => {
+        let bool = false;
+        for(let entry of Object.entries(drink)){
+            if(entry[1] === parsedInput){
+                bool = true;
+            };
+        };
+        if(bool) return drink;
+    });
+};
 
-export { addToRootDiv, getEl, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, addToPage, addImgToPage, hasClass, addClassToEl, removeClassFromEl };
+const addNoResultsText = section => section.innerHTML = `<p class="no-results-message">Sorry, we can\'t seem to find what you\'re looking for</p>`;
+
+const clearField = input => input.value = '';
+
+export { addToRootDiv, getEl, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, addToPage, addImgToPage, hasClass, addClassToEl, removeClassFromEl, addLoading, removeLoading, filterDrinksByInput, addNoResultsText, clearField };

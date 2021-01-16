@@ -14,6 +14,8 @@ $dark-blue: #02182B;
 $red: #D7263D;
 $grey-blue: #448FA3;
 $mid-blue: #68C5DB;
+$go-green: #3bc73a;
+$go-green-hover: #45e344;
 $title-font: 'Lobster', cursive;
 $caps-font: 'Bebas Neue', cursive;
 $cursive-font: 'Charm', cursive;
@@ -27,7 +29,7 @@ $main-font: 'Biryani', sans-serif;
     align-items: center;
 }
 
-@import 'glasspour-animation';
+@import 'animations';
 @import 'cocktail-template';
 @import 'navbar';
 
@@ -57,4 +59,66 @@ $main-font: 'Biryani', sans-serif;
     color: $dark-blue;
     margin: 3rem;
     text-align: center;
+}
+
+//  ------------------------------  RANDOM COCKTAILS  --------------------------------------
+
+#search-form {
+    @include flexCenter(column);
+    margin: 1.5rem auto;
+    background: $dark-blue;
+    padding: 0.5rem;
+    width: 250px;
+    border-radius: 0.25rem;
+    color: white;
+}
+
+@media screen and (min-width: 1000px){
+    #search-form {
+        width: 500px;
+    }
+}
+
+#search-form * {
+    margin: 0.1rem;
+    font-family: $main-font;
+}
+
+#search-form label {
+    font-size: 1.2rem;
+}
+
+#search-form input {
+    width: 80%;
+    border: none;
+    border-radius: 0.125rem;
+    padding: 0.125rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#search-form button {
+    padding: 0.25rem;
+    border: none;
+    background: $go-green;
+    color: white;
+    width: 80%;
+    border-radius: 0.125rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#search-form button:hover, 
+#search-form button:active {
+    background: $go-green-hover;
+}
+
+.search-results article {
+    margin: 1.5rem;
+}
+
+.no-results-message {
+    color: red;
+    text-align: center;
+    font-family: $main-font;
 }

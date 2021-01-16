@@ -1,46 +1,26 @@
-import { addToRootDiv, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getContainerChildren, getImgEl, getInstructionsEl, getListEl, getTitleEl, addToPage, getIsAlcoholicEl, addImgToPage } from "../util-functions";
+import { addToRootDiv, fetchCocktail, compose, getContainerChildren, getImgEl, getInstructionsEl, getListEl, getTitleEl, addToPage, getIsAlcoholicEl, addImgToPage } from "../util-functions";
+import { makeCocktailTemplate } from '../cocktailtemplate.js';
+import { outputIngredients } from '../outputIngredients.js';
+import { makeCocktailObj } from '../makeCocktailObj.js'
 
 export const randomCocktail = async () => {
     
     const fetchedJson = await fetchCocktail('https://www.thecocktaildb.com/api/json/v1/1/random.php');
     const cocktail = fetchedJson.drinks[0];
-    const cocktailObj = {
-        img: getImage(cocktail),
-        ingredientsList: getIngredients(cocktail),
-        title: getTitle(cocktail),
-        alcoholicFlag: isAlcoholic(cocktail),
-        instructions: getInstructions(cocktail)
-    };
-
-    const { img, ingredientsList, title, alcoholicFlag, instructions } = cocktailObj;
-
-    // const ingredientsHTML = Object.entries(ingredientsList).map(ingredient => `<li>${ingredient[0]}: ${ingredient[1]}</li>`);
+    const cocktailObj = makeCocktailObj(cocktail);
+    const { ingredientsList } = cocktailObj;
+    const cocktailTemplate = makeCocktailTemplate(cocktailObj);
 
     const content = `
         <button class="randomise">Randomise Again!</button>
-        <div class="cocktail-container" id="random-cocktail">
-            <h1 class="cocktail-title">${title}</h1>
-            <div><span class="alcoholic-flag">${alcoholicFlag}</span><i class="fas fa-check"></i></div>
-            <img class="thumb-img" src="${img}" alt="image-of-cocktail">
-            <h2 class="ingredients-h2">Ingredients</h2>
-            <ul class="ingredients-list"></ul>
-            <h2>Instructions</h2>   
-            <p class="instructions">${instructions}</p> 
-        </div>`;
+        ${cocktailTemplate}
+        `
     addToRootDiv(content)
 
     const randomiseBtn = document.querySelector('.randomise');
     const ingredientsEl = document.querySelector('.ingredients-list');
 
-    const outputIngredients = () => {
-        const ingredientsArr = Object.entries(ingredientsList);
-        for(let entry of ingredientsArr){
-            const li = document.createElement('li');
-            li.textContent = `${entry[0]}: ${entry[1]}`;
-            ingredientsEl.append(li);
-        };
-    };
-    outputIngredients();
+    outputIngredients(ingredientsEl, ingredientsList);
 
     randomiseBtn.addEventListener('click', randomCocktail);
 

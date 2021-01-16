@@ -137,3 +137,24 @@
     margin: 5rem auto;
     z-index: -2;
 }
+
+//  ----------------------- LOADING ANIMATION ------------------------  
+
+.loading-h1 {
+    color: $dark-blue;
+    font-family: $caps-font;
+    text-align: center;
+}
+
+.animate-loading {
+    animation: spin 500ms infinite !important;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

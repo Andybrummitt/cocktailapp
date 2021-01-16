@@ -3,7 +3,7 @@
     margin: 1rem auto;
     font-size: 2rem;
     padding: 0.5rem;
-    background: #3bc73a;
+    background: $go-green;
     border-radius: 0.5rem;
     font-family: $caps-font;
     color: white;
@@ -13,7 +13,7 @@
 
 .randomise:active, 
 .randomise:hover {
-    background: #45e344;
+    background: $go-green-hover;
 }
 
 .cocktail-container {

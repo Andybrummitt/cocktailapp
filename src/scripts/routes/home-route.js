@@ -4,7 +4,7 @@ const content = `
 <div class="home-container">
     <p class="welcome-msg">Welcome to Cocktails!</p>
     <div id="animation-title-container">
-        <div id="logo-container">
+        <div id="logo-container" class="animate-home">
             <div id="glass-container">
                 <div id="top-glass"></div>
                 <div id="middle-glass"></div>
@@ -21,7 +21,6 @@ const content = `
 export const home = () => {
     addToRootDiv(content);
     showText();
-    console.log('mug')
 };
 
 function showText(){
