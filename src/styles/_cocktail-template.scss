@@ -1,14 +1,10 @@
 .randomise {
-    display: block;
+    @include goBtn();
     margin: 1rem auto;
     font-size: 2rem;
     padding: 0.5rem;
-    background: $go-green;
     border-radius: 0.5rem;
-    font-family: $caps-font;
-    color: white;
-    border: 0.2rem solid black;
-    cursor: pointer;
+    border: 0.2rem solid black; 
 }
 
 .randomise:active, 

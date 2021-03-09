@@ -1,7 +1,7 @@
 import { hasClass, addClassToEl, removeClassFromEl } from './util-functions.js';
 import { domObj } from './domObj.js'
 
-const { hbMenu, navLinks } = domObj;
+const { hbMenu, navLinks, title } = domObj;
 
 const openMenu = () => {
     removeClassFromEl(navLinks, 'hide-links');
@@ -22,6 +22,13 @@ function handleClick(){
     };
 };
 
+const handleTitleClick = () => {
+    if(!hasClass(navLinks, 'hide-links')){
+        closeMenu();
+    }
+}
+
+title.addEventListener('click', handleTitleClick);
 hbMenu.addEventListener('click', handleClick);
 navLinks.addEventListener('click', handleClick);
 

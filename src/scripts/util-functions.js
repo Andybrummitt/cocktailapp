@@ -11,7 +11,7 @@ const fetchCocktail = async (url) => {
         return jsonRes;
     }
     catch(err){
-        console.log(err)
+        console.log('error u mug', err.name)
         return err;
     }
 }
@@ -32,7 +32,7 @@ const getIngredients = cocktail => {
             //  GET INGREDIENT AND MEASUREMENT VALUES
             const num = entry[0].slice(13);
             const ingredient = entry[1];
-            const measurement = cocktail[`strMeasure${num}`];
+            const measurement = cocktail[`strMeasure${num}`] || 'Amount Not Specified';
             //  IF VALUES EXIST PUSH ENTRIES TO NEW OBJ
             if(ingredient && measurement){
                 ingredientsObj[`${ingredient}`] = measurement;
@@ -42,7 +42,7 @@ const getIngredients = cocktail => {
     return ingredientsObj;
 };
 
-const compose = (fn1, fn2) => fn2(fn1);
+
 
 const addToPage = (content, element) => element.textContent = content;
 const addImgToPage = (src, element) => element.src = src;
@@ -61,7 +61,7 @@ const hasClass = (elem, className) => elem.classList.contains(className);
 const addClassToEl = (elem, className) => elem.classList.add(className);
 const removeClassFromEl = (elem, className) => elem.classList.remove(className);
 
-const addLoading = (section) => {
+const addLoading = section => {
     const loadingHTML =
     `<h1 class="loading-h1">Loading...</h1>
     <div id="logo-container" class="animate-loading">
@@ -87,8 +87,19 @@ const filterDrinksByInput = (parsedInput, allDrinks) => {
     });
 };
 
-const addNoResultsText = section => section.innerHTML = `<p class="no-results-message">Sorry, we can\'t seem to find what you\'re looking for</p>`;
+const addNoResultsText = section => section.innerHTML = `<p class="error-message">Sorry, we can\'t seem to find what you\'re looking for</p>`;
 
 const clearField = input => input.value = '';
 
-export { addToRootDiv, getEl, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, addToPage, addImgToPage, hasClass, addClassToEl, removeClassFromEl, addLoading, removeLoading, filterDrinksByInput, addNoResultsText, clearField };
+const compose = (fn1, fn2) => (arg) => fn2(fn1(arg));
+//  PARSING NEEDED FOR INGREDIENTS CHECK ON API
+const makeLowercase = input => input.toLowerCase();
+const uppercaseFirstLetter = input => input.charAt(0).toUpperCase() + input.slice(1);
+const fullyParseIngredient = compose(makeLowercase, uppercaseFirstLetter);
+
+const getIngredientsListElFromArticle = (article) => {
+    const articleChildren = Array.from(article.firstElementChild.children);
+    return articleChildren.filter(child => child.classList.contains('ingredients-list'))[0];
+}
+
+export { addToRootDiv, getEl, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, addToPage, addImgToPage, hasClass, addClassToEl, removeClassFromEl, addLoading, removeLoading, filterDrinksByInput, addNoResultsText, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle };

@@ -14,6 +14,13 @@
     font-size: 2rem;
 }
 
+.title-dark {
+    @extend .title;
+    color: $dark-blue;
+    text-align: center;
+    margin: 2rem 0;
+}
+
 .title a {
     text-decoration: none;
     color: $light-blue;
@@ -69,18 +76,15 @@
 }
 
 #hb-container div:nth-child(1){
-    top: 12px;
-    
+    top: 12px;   
 }
 
 #hb-container div:nth-child(2){
-    top: 27px;
-    
+    top: 27px;   
 }
 
 #hb-container div:nth-child(3){
-    top: 42px;
-    
+    top: 42px; 
 }
 
 // -------------------- NAV LINKS ------------------    
@@ -171,7 +175,6 @@
     .nav-link a {
         color: $light-blue;
         display: inline-block;
-        text-align: justify;
         text-decoration: none;
         font-size: 1.3rem;
         padding: 1rem;

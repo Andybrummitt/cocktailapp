@@ -1,4 +1,4 @@
-import { addToRootDiv, fetchCocktail, addNoResultsText, addLoading, removeLoading, filterDrinksByInput, clearField } from "../util-functions";
+import { addToRootDiv, fetchCocktail, addNoResultsText, addLoading, removeLoading, filterDrinksByInput, clearField, fullyParseIngredient, getIngredientsListElFromArticle } from "../util-functions";
 import { makeCocktailTemplate } from '../cocktailtemplate.js';
 import { outputIngredients } from '../outputIngredients.js';
 import { makeCocktailObj } from '../makeCocktailObj.js'
@@ -16,13 +16,13 @@ const getResults = async (input, section) => {
     console.log("Call to getAllDrinks took " + (t1 - t0) + " milliseconds.")
     removeLoading(section);
     //  UPPERCASE FIRST LETTER OF INPUT
-    const parsedInput = input.charAt(0).toUpperCase() + input.slice(1);
+    const parsedInput = fullyParseIngredient(input);
     //  FILTER DRINKS BASED ON INPUT INGREDIENTS
     const filteredDrinks = filterDrinksByInput(parsedInput, allDrinks);
      //  CLEAR INPUT
-     const searchField = document.querySelector('#search-input');
-     clearField(searchField);
-    if(!filteredDrinks){
+    const searchField = document.querySelector('#search-input');
+    clearField(searchField);
+    if(filteredDrinks.length < 1){
         addNoResultsText(section);
     }
     //  ADD HTML TEMPLATES 
@@ -33,8 +33,7 @@ const getResults = async (input, section) => {
         article.innerHTML = cocktailHTML;
         section.append(article);
         //  ADD INGREDIENTS HTML
-        const articleChildren = Array.from(article.firstElementChild.children);
-        const ingredientsEl = articleChildren.filter(child => child.classList.contains('ingredients-list'))[0];
+        const ingredientsEl = getIngredientsListElFromArticle(article);
         outputIngredients(ingredientsEl, cocktailObj.ingredientsList);
     };
 };

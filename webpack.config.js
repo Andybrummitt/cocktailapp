@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 module.exports = {
+    devtool: 'eval-source-map',
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     entry: './src/scripts/index.js',
     output: {
@@ -53,6 +54,5 @@ module.exports = {
             filename: '[name].css',
             chunkFilename: '[id].css'
         }) 
-    ],
-    devtool: 'source-map',
+    ]
 };

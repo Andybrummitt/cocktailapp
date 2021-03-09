@@ -1,12 +1,22 @@
-import { addToRootDiv, fetchCocktail, addLoading, removeLoading, filterDrinksByInput, addNoResultsText, clearField } from "../util-functions";
+import { addToRootDiv, fetchCocktail, addLoading, removeLoading, filterDrinksByInput, addNoResultsText, clearField, getIngredientsListElFromArticle } from "../util-functions";
 import { makeCocktailTemplate } from '../cocktailtemplate.js';
 import { outputIngredients } from '../outputIngredients.js';
 import { makeCocktailObj } from '../makeCocktailObj.js'
 import { searchByType } from "../searchByType";
 
+const isError = fetchedData => fetchedData instanceof Error;
+const displayErrorMsg = (fetchedData, section) => {
+    console.log(fetchedData)
+    section.innerHTML = `<p>Sorry, there appears to be an error with the request - ${fetchedData.status}`
+}; 
+
 const getResults = async (input, section) => {
     //  GET COCKTAILS
-    const fetchedJson = await fetchCocktail(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${input}`);
+    const fetchedJson = await fetchCocktail(`https://www.thecocktaildb.com/api/json/v1/2/search.php?s=${input}`);
+    if(isError(fetchedJson)){
+        displayErrorMsg(fetchedJson, section);
+        return;
+    }
     const cocktails = fetchedJson.drinks;
     //  CLEAR INPUT
     const searchField = document.querySelector('#search-input');
@@ -24,8 +34,7 @@ const getResults = async (input, section) => {
         article.innerHTML = cocktailHTML;
         section.append(article);
         //  ADD INGREDIENTS HTML
-        const articleChildren = Array.from(article.firstElementChild.children);
-        const ingredientsEl = articleChildren.filter(child => child.classList.contains('ingredients-list'))[0];
+        const ingredientsEl = getIngredientsListElFromArticle(article);
         outputIngredients(ingredientsEl, cocktailObj.ingredientsList);
     };
 };
