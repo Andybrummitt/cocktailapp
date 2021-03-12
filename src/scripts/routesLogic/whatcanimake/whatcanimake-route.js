@@ -1,8 +1,10 @@
-import { addToRootDiv, fetchCocktail, addNoResultsText, addLoading, removeLoading, filterDrinksByInput, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle } from "../util-functions";
-import { makeCocktailTemplate } from '../cocktailtemplate.js';
-import { outputIngredients } from '../outputIngredients.js';
-import { makeCocktailObj } from '../makeCocktailObj.js'
-import { getAllDrinks } from '../getAllDrinks.js';
+import { addContentToRootDiv, fetchCocktail, addNoResultsText, addLoading, removeLoading, filterDrinksByInput, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle } from "../../util-functions";
+import { makeCocktailTemplate } from '../../cocktailtemplate.js';
+import { outputIngredients } from '../../outputIngredients.js';
+import { makeCocktailObj } from '../../makeCocktailObj.js'
+import { getAllDrinks } from '../../getAllDrinks.js';
+import { displayIngredientOnDOM, createRemoveIngredientBtn } from './ingredients-display-functions.js';
+import { ingredientsState } from './ingredients-state.js';
 
 export const getIngredientsList = cocktail => {
     let ingredientsList = [];
@@ -59,6 +61,13 @@ const colorMissingIngredientsRed = (ingredientListItems, UsersOwnIngredients) =>
     };       
 };
 
+const addButtonListener = (button, inputValue) => {
+    button.addEventListener('click', e => {
+        removeIngredientFromDOM(e, inputValue);
+        removeFromState(inputValue);
+    });
+};
+
 const appendDrinksWithNMissingIngredientsHeading = (section, amountOff) => {
     const h3 = document.createElement('h3');
     h3.textContent = `Cocktails which you are missing ${amountOff} ingredient${amountOff > 1 ? 's' : ''} for`;
@@ -100,8 +109,6 @@ const displayCocktails = (cocktailsByNumberOfIngredientsOff, section, UsersOwnIn
     };
 };
 
-let ingredientsState = [];
-
 const handleSubmit = async state => {
     const section = document.querySelector('.search-results');
     //  IF ANY INGREDIENTS INPUTTED
@@ -131,29 +138,6 @@ const removeFromState = ingredient => {
     ingredientsState.splice(ingredientsState.indexOf(ingredient), 1);
 };
 
-const removeIngredient = (ev, inputValue) => {
-    const liToRemove = ev.target.parentElement.parentElement;
-    liToRemove.remove();
-    removeFromState(inputValue);
-};
-
-const addIngredientToList = (inputValue, ul) => {
-    //  CREATE ELEMENTS
-    const li = document.createElement('li');
-    const div = document.createElement('div');
-    const span = document.createElement('span');
-    span.textContent = inputValue;
-    const button = document.createElement('button');
-    button.textContent = 'Remove';
-    button.classList.add('remove-ingredient-btn');
-    //  APPEND TO HTML
-    div.append(span);
-    div.append(button);
-    li.append(div);
-    ul.append(li);
-    addToState(inputValue);
-    button.addEventListener('click', e => removeIngredient(e, inputValue));
-};
 
 const addSubmitListener = (ingredientsState) => {
     const submitBtn = document.querySelector('#whatcanimake-btn');
@@ -182,7 +166,7 @@ export const whatCanIMake = () => {
     <section class="search-results"></section>
     `;
 
-    addToRootDiv(content);
+    addContentToRootDiv(content);
     const inputField = document.querySelector('#ingredient-input');
     const ul = document.querySelector('.your-ingredients');
     const form = document.querySelector('#ingredients-form');
@@ -191,7 +175,10 @@ export const whatCanIMake = () => {
         const inputValue = inputField.value;
         //  FORM VALIDATION
         if(inputValue && !ingredientsState.includes(inputValue)){
-            addIngredientToList(inputValue, ul);
+            const button = createRemoveIngredientBtn();
+            displayIngredientOnDOM(inputValue, ul, button);
+            addButtonListener(button, inputValue);
+            addToState(inputValue);
             clearField(inputField);  
         }
         else if(inputValue && ingredientsState.includes(inputValue)){

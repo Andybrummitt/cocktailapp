@@ -1,4 +1,4 @@
-import { addToRootDiv, fetchCocktail, addNoResultsText, addLoading, removeLoading, filterDrinksByInput, clearField, fullyParseIngredient, getIngredientsListElFromArticle } from "../util-functions";
+import { addContentToRootDiv, fetchCocktail, addNoResultsText, addLoading, removeLoading, filterDrinksByInput, clearField, fullyParseIngredient, getIngredientsListElFromArticle } from "../util-functions";
 import { makeCocktailTemplate } from '../cocktailtemplate.js';
 import { outputIngredients } from '../outputIngredients.js';
 import { makeCocktailObj } from '../makeCocktailObj.js'

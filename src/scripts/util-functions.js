@@ -1,7 +1,7 @@
 import { domObj } from './domObj.js';
 const { rootDiv, cocktailTitles, cocktailImgs, cocktailIngredients, cocktailInstructions } = domObj;
 
-const addToRootDiv = content => rootDiv.innerHTML = content;
+const addContentToRootDiv = content => rootDiv.innerHTML = content;
 const getEl = id => document.querySelector(`#${id}`);
 
 const fetchCocktail = async (url) => {
@@ -102,4 +102,4 @@ const getIngredientsListElFromArticle = (article) => {
     return articleChildren.filter(child => child.classList.contains('ingredients-list'))[0];
 }
 
-export { addToRootDiv, getEl, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, addToPage, addImgToPage, hasClass, addClassToEl, removeClassFromEl, addLoading, removeLoading, filterDrinksByInput, addNoResultsText, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle };
+export { addContentToRootDiv, getEl, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, addToPage, addImgToPage, hasClass, addClassToEl, removeClassFromEl, addLoading, removeLoading, filterDrinksByInput, addNoResultsText, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle };

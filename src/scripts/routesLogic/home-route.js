@@ -1,4 +1,4 @@
-import { addToRootDiv, getEl } from "../util-functions";
+import { addContentToRootDiv, getEl } from "../util-functions";
 
 const content = `
 <div class="home-container">
@@ -19,7 +19,7 @@ const content = `
 `;
 
 export const home = () => {
-    addToRootDiv(content);
+    addContentToRootDiv(content);
     showText();
 };
 

@@ -1,4 +1,4 @@
-import { addToRootDiv, fetchCocktail, addLoading, removeLoading, filterDrinksByInput } from "./util-functions";
+import { addContentToRootDiv, fetchCocktail, addLoading, removeLoading, filterDrinksByInput } from "./util-functions";
 
 export const searchByType = async (type, getResults) => {
     const content = `
@@ -9,7 +9,7 @@ export const searchByType = async (type, getResults) => {
     </form>
     <section class="search-results"></section>
     `;
-    addToRootDiv(content);
+    addContentToRootDiv(content);
     
     const form = document.querySelector(`#search-form`);
     const resultsSection = document.querySelector('.search-results');
