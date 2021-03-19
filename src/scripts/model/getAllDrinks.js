@@ -1,4 +1,4 @@
-import { fetchCocktail } from './util-functions.js';
+import { fetchCocktail } from '../controllers/util-functions.js';
 
 const getDrinksByLetter = async (letter) => {
     const fetchedJson = await fetchCocktail(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);

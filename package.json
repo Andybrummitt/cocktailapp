@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@babel/plugin-syntax-class-properties": "^7.12.13",
     "core-js": "^3.8.1",
     "express": "^4.17.1",
     "path": "^0.12.7"

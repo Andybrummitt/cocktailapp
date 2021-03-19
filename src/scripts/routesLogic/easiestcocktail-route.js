@@ -1,9 +1,8 @@
-import { isIngredient } from '../util-functions.js';
-import { addContentToRootDiv, addLoading, removeLoading, getIngredientsListElFromArticle } from "../util-functions";
-import { makeCocktailTemplate } from '../cocktailtemplate.js';
-import { outputIngredients } from '../outputIngredients.js';
-import { makeCocktailObj } from '../makeCocktailObj.js'
-import { getAllDrinks } from '../getAllDrinks.js';
+import { isIngredient, addContentToRootDiv, addLoading, removeLoading, getIngredientsListElFromArticle } from '../controllers/util-functions.js';
+import { makeCocktailTemplate } from '../controllers/controller-util-functions/cocktailtemplate.js';
+import { outputIngredients } from '../views/views-util-functions/outputIngredients.js';
+import { makeCocktailObj } from '../controllers/controller-util-functions/makeCocktailObj.js'
+import { getAllDrinks } from '../model/getAllDrinks.js';
 
 const drinkObjPropertyIngredientIsPresent = objEntry => isIngredient(objEntry) && objEntry[1] !== null;
 

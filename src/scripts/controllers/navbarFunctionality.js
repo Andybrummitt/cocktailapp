@@ -1,5 +1,5 @@
 import { hasClass, addClassToEl, removeClassFromEl } from './util-functions.js';
-import { domObj } from './domObj.js'
+import { domObj } from '../domObj.js'
 
 const { hbMenu, navLinks, title } = domObj;
 

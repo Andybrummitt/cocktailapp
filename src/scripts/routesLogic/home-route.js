@@ -1,4 +1,4 @@
-import { addContentToRootDiv, getEl } from "../util-functions";
+import { addContentToRootDiv, getEl } from "../controllers/util-functions";
 
 const content = `
 <div class="home-container">

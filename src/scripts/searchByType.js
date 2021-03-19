@@ -1,4 +1,4 @@
-import { addContentToRootDiv, fetchCocktail, addLoading, removeLoading, filterDrinksByInput } from "./util-functions";
+import { addContentToRootDiv, fetchCocktail, addLoading, removeLoading, filterDrinksByInput } from "./controllers/util-functions.js";
 
 export const searchByType = async (type, getResults) => {
     const content = `

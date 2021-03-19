@@ -1,4 +1,4 @@
-import { domObj } from './domObj.js';
+import { domObj } from '../domObj';
 const { rootDiv, cocktailTitles, cocktailImgs, cocktailIngredients, cocktailInstructions } = domObj;
 
 const addContentToRootDiv = content => rootDiv.innerHTML = content;

@@ -1,4 +1,4 @@
-import { getTitle, isAlcoholic, getImage, getInstructions, getIngredients } from './util-functions.js';
+import { getTitle, isAlcoholic, getImage, getInstructions, getIngredients } from '../util-functions.js';
 
 export const makeCocktailObj = (cocktail) => {
     return {

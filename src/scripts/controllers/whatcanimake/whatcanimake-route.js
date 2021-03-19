@@ -1,61 +1,22 @@
-import { addContentToRootDiv, fetchCocktail, addNoResultsText, addLoading, removeLoading, filterDrinksByInput, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle } from "../../util-functions";
-import { makeCocktailTemplate } from '../../cocktailtemplate.js';
-import { outputIngredients } from '../../outputIngredients.js';
-import { makeCocktailObj } from '../../makeCocktailObj.js'
-import { getAllDrinks } from '../../getAllDrinks.js';
-import { displayIngredientOnDOM, createRemoveIngredientBtn } from './ingredients-display-functions.js';
-import { ingredientsState } from './ingredients-state.js';
+import { addContentToRootDiv, fetchCocktail, addNoResultsText, addLoading, removeLoading, filterDrinksByInput, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle } from "../util-functions";
+import { makeCocktailTemplate } from '../controller-util-functions/cocktailtemplate.js';
+import { outputIngredients } from '../../views/views-util-functions/outputIngredients.js';
+import { makeCocktailObj } from '../controller-util-functions/makeCocktailObj.js';
+import { getAllDrinks } from '../../model/getAllDrinks.js';
+import { displayIngredientOnDOM, createRemoveIngredientBtn, removeIngredientFromDOM } from './ingredients-display-functions.js';
+import { ingredientsState, addToState, removeFromState } from './ingredients-state.js';
+import { getIngredientsList, calculateAmountOfIngredientsOff, makeObjCocktailsByNumberOfIngredientsOff, getCocktailsWithUsersIngredients } from './get-cocktails-functions.js';
 
-export const getIngredientsList = cocktail => {
-    let ingredientsList = [];
-    for(let entry of Object.entries(cocktail)){
-        if(isIngredient(entry)){
-            entry[1] && ingredientsList.push(entry[1]);
-        };
-    };
-    return ingredientsList;
- };
- const calculateAmountOfIngredientsOff = (ingredientsList, parsedState) => {
-    let counter = 0;
-    ingredientsList.forEach(ingredient => {
-        if(parsedState.includes(ingredient)){
-            counter++;
-        };
-    });
-    return ingredientsList.length - counter;
-};
-const makeObjCocktailsByNumberOfIngredientsOff = () => {
-    let obj = {};
-    for(let i = 0; i < 15; i++){
-        obj[`${i}`] = [];
-    };
-    return obj;
+
+const getIngredientString = (ingredient) => {
+    const colonIndex = ingredient.textContent.indexOf(':');
+    return ingredient.textContent.slice(0, colonIndex).toLowerCase();
 };
 
-const getCocktailsByEachIngredient = (ingredientsInputState, filterDrinksByInputFunc, allDrinks) => {
-    const cocktailsByIngredients = {}
-    for(let ingredient of ingredientsInputState){
-        cocktailsByIngredients[`${ingredient}`] = filterDrinksByInputFunc(ingredient, allDrinks);
-    };
-    return cocktailsByIngredients;
-}
-const getCocktailsThatMatchUserIngredients = (ingredientsInputState, filterDrinksByInput, allDrinks) => {
-        //  GET COCKTAILS BY EACH INGREDIENT FROM API
-        const cocktailsByIngredients = getCocktailsByEachIngredient(ingredientsInputState, filterDrinksByInput, allDrinks);
-        //  CONCAT OBJ ARRAYS TOGETHER INTO BIG ARRAY WITH ONLY UNIQUE VALUES
-        const filteredCocktailsSet = new Set(Object.values(cocktailsByIngredients).map(arr => arr).flat());
-        const filteredCocktails = Array.from(filteredCocktailsSet);
-        return filteredCocktails;
-};
-
-const colorMissingIngredientsRed = (ingredientListItems, UsersOwnIngredients) => {
-    //  LOOP THROUGH INGREDIENTS LIST DISPLAYED
+const colorMissingIngredientsRed = (ingredientListItems, UsersOwnIngredients, getIngredientString) => {
     for(let ingredientListItem of ingredientListItems){
-        //  GET INGREDIENT STRING
-        const colonIndex = ingredientListItem.textContent.indexOf(':');
-        const ingredientWithoutMeasurement = ingredientListItem.textContent.slice(0, colonIndex).toLowerCase();
-        //  IF USER DOESN'T HAVE INGREDIENT FOR COCKTAIL - COLOR INGREDIENT RED
-    if(!UsersOwnIngredients.includes(ingredientWithoutMeasurement)){
+        const ingredientString = getIngredientString(ingredientListItem);
+    if(!UsersOwnIngredients.includes(ingredientString)){
         ingredientListItem.classList.add('missing-ingredient');
         };
     };       
@@ -78,8 +39,7 @@ const appendDrinksWithNMissingIngredientsHeading = (section, amountOff) => {
 //  DISPLAY FUNCTIONS
 const displayCocktails = (cocktailsByNumberOfIngredientsOff, section, UsersOwnIngredients) => {
     if(cocktailsByNumberOfIngredientsOff[0].length < 1){
-        const noCocktailsHTML = `
-        <p class="error-message missing-ingredients-title">Sorry it doesn't seem like you have <b>all</b> the ingredients for any cocktails</p>`
+        const noCocktailsHTML = `<p class="error-message missing-ingredients-title">Sorry it doesn't seem like you have <b>all</b> the ingredients for any cocktails</p>`
         section.innerHTML = noCocktailsHTML;
     }
     //  LOOP THROUGH COCKTAILS TO FIND 10 COCKTAILS THAT USER HAS MOST INGREDIENTS FOR
@@ -101,7 +61,7 @@ const displayCocktails = (cocktailsByNumberOfIngredientsOff, section, UsersOwnIn
                 section.append(article);
                 //  COLOR MISSING INGREDIENTS RED
                 const ingredientListItems = Array.from(ingredientsEl.children);
-                colorMissingIngredientsRed(ingredientListItems, UsersOwnIngredients)
+                colorMissingIngredientsRed(ingredientListItems, UsersOwnIngredients, getIngredientString)
                 counter++;
             }    
             else return;
@@ -119,7 +79,7 @@ const handleSubmit = async state => {
         //  INIT OBJ WHICH TRACKS WHICH COCKTAILS USER HAS ALL INGREDIENTS FOR / IS CLOSE TO HAVING ALL INGREDIENTS FOR
         const cocktailsByNumberOfIngredientsOff = makeObjCocktailsByNumberOfIngredientsOff();
         //  GET COCKTAILS THAT USE INGREDIENTS USER HAS AND LOOP OVER 
-        const filteredCocktails = getCocktailsThatMatchUserIngredients(parsedState, filterDrinksByInput, allDrinks);
+        const filteredCocktails = getCocktailsWithUsersIngredients(parsedState, filterDrinksByInput, allDrinks);
         for(let cocktail of filteredCocktails){
             const ingredientsList = getIngredientsList(cocktail);
             const amountOfIngredientsOff = calculateAmountOfIngredientsOff(ingredientsList, parsedState);
@@ -133,12 +93,6 @@ const handleSubmit = async state => {
     else section.innerHTML = '<p class="error-message">Please input your ingredients and try again</p>';  
 };
 
-const addToState = ingredient => ingredientsState.push(ingredient);
-const removeFromState = ingredient => {
-    ingredientsState.splice(ingredientsState.indexOf(ingredient), 1);
-};
-
-
 const addSubmitListener = (ingredientsState) => {
     const submitBtn = document.querySelector('#whatcanimake-btn');
     submitBtn.addEventListener('click', () => handleSubmit(ingredientsState))
@@ -150,6 +104,29 @@ const ingredientAlreadyAddedMessage = (form) => {
     p.style.textAlign = 'center';
     form.append(p);
     setTimeout(() => p.remove(), 3000);
+};
+
+//validating form input
+//displaying ingredient
+//changing state
+
+const addDisplayIngredientsListenerToForm = (form, inputField, ul) => {
+    form.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        const inputValue = inputField.value;
+        //  FORM VALIDATION
+        if(inputValue && !ingredientsState.includes(inputValue)){
+            const button = createRemoveIngredientBtn();
+            displayIngredientOnDOM(inputValue, ul, button);
+            addButtonListener(button, inputValue);
+            addToState(inputValue);
+            clearField(inputField);  
+        }
+        else if(inputValue && ingredientsState.includes(inputValue)){
+            ingredientAlreadyAddedMessage(form);
+            clearField(inputField);
+        };
+    });
 };
 
 export const whatCanIMake = () => {
@@ -169,31 +146,12 @@ export const whatCanIMake = () => {
     addContentToRootDiv(content);
     const inputField = document.querySelector('#ingredient-input');
     const ul = document.querySelector('.your-ingredients');
-    const form = document.querySelector('#ingredients-form');
-    form.addEventListener('submit', function(e){
-        e.preventDefault();
-        const inputValue = inputField.value;
-        //  FORM VALIDATION
-        if(inputValue && !ingredientsState.includes(inputValue)){
-            const button = createRemoveIngredientBtn();
-            displayIngredientOnDOM(inputValue, ul, button);
-            addButtonListener(button, inputValue);
-            addToState(inputValue);
-            clearField(inputField);  
-        }
-        else if(inputValue && ingredientsState.includes(inputValue)){
-            ingredientAlreadyAddedMessage(form);
-            clearField(inputField);
-        }
-    });
+    const ingredientsForm = document.querySelector('#ingredients-form');
     addSubmitListener(ingredientsState);
+    addDisplayIngredientsListenerToForm(ingredientsForm, inputField, ul);
 };
 
-
-// 'Add your ingredients below' message
-// input box - adds input value to list that appends to section
-// remove buttons on list to remove
-// what can i make with these ingredients button 
-
-// function fires onclick of button
-// filter alldrinks by which have ingredients, discard those without ingredients
+//generating input field
+//getting users input
+//calculating cocktails that match
+//generating output

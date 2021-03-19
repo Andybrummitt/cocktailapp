@@ -1,7 +1,8 @@
+import { removeFromState } from './ingredients-state.js';
+
 export const removeIngredientFromDOM = (ev) => {
     const liToRemove = ev.target.parentElement.parentElement;
     liToRemove.remove();
-    // removeFromState(inputValue);
 };
 
 export const createRemoveIngredientBtn = () => {
