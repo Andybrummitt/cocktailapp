@@ -1,20 +1,26 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const { HotModuleReplacementPlugin } = require('webpack');
 
 module.exports = {
     devtool: 'eval-source-map',
-    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+    mode: 'development',
     entry: './src/scripts/index.js',
     output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'public')
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'public'),
+        // publicPath: '/public/'
     },
-    // devServer: {
-    //     port: 8080,
-    //     contentBase: path.resolve(__dirname, "dist"),
-    //     hot: true
-    //   },
+    devServer: {
+        port: 8080,
+        contentBase: path.resolve(__dirname, 'public'),
+        overlay: {
+            warnings: true,
+            errors: true,
+          },
+          hot: true  
+    },
     module: {
         rules: [
             {
@@ -53,6 +59,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
-        })
+        }),
     ]
 };

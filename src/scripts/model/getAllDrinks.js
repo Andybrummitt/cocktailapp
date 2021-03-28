@@ -1,17 +1,27 @@
 import { fetchCocktail } from '../controllers/util-functions.js';
+import { cocktailsState } from './state.js';
 
 const getDrinksByLetter = async (letter) => {
-    const fetchedJson = await fetchCocktail(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);
+    let fetchedJson;
+    try {
+        fetchedJson = await fetchCocktail(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);
+    }
+    catch(err){
+        cocktailsState.allDrinks.error = err;
+        cocktailsState.allDrinks.success = null;
+        return;
+    }
     const drinks = fetchedJson.drinks;
     return drinks;
 }
-//  this takes a while try to optimize
+
 export const getAllDrinks = async () => {
     let allDrinks = [];
     const alphabet ='abcdefghijklmnopqrstuvwxyz';
     for(let letter of alphabet){
-       const drinksByLetterArr = await getDrinksByLetter(letter);
-       drinksByLetterArr && allDrinks.push(drinksByLetterArr);
+        const drinksByLetterArr = await getDrinksByLetter(letter);
+        drinksByLetterArr && allDrinks.push(drinksByLetterArr);
     };
-    return allDrinks.flat();
+    cocktailsState.allDrinks.success = allDrinks.flat();
+    cocktailsState.allDrinks.error = null;
 };

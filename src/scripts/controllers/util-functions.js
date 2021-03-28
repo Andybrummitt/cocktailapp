@@ -6,14 +6,18 @@ const getEl = id => document.querySelector(`#${id}`);
 
 const fetchCocktail = async (url) => {
     try {
-        const response = await fetch(url);
-        const jsonRes = await response.json();
-        return jsonRes;
-    }
+        let response = await fetch(url);
+        if(response.ok){
+            const jsonResponse = await response.json();
+            return jsonResponse;
+        }
+        else if(response.status === 404){
+                throw new Error('404 Not Found');
+                };       
+        } 
     catch(err){
-        console.log('error u mug', err.name)
-        return err;
-    }
+        throw err;
+    } 
 }
 
 //  GET VALUES FROM API

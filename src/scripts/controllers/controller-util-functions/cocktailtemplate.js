@@ -1,6 +1,5 @@
-export const makeCocktailTemplate = (cocktailObj) => {
+export const makeCocktailTemplate = cocktailObj => {
     const { img, title, alcoholicFlag, instructions } = cocktailObj;
-
     return `
     <div class="cocktail-container" id="random-cocktail">
         <h1 class="cocktail-title">${title}</h1>

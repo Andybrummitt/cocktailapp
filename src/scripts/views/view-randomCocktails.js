@@ -1,21 +1,25 @@
 import { makeCocktailTemplate } from "../controllers/controller-util-functions/cocktailtemplate";
-import { outputIngredients } from "./views-util-functions/outputIngredients";
+import PageView from "./PageView";
+import { outputIngredients } from "./view-util-functions/outputIngredients";
 
-class RandomCocktailView {
+class RandomCocktailView extends PageView {
     constructor(){
-        this.rootDiv = document.querySelector('#root');
+        super();
+        this.section = null;
     }
-    
-    generateMarkUp(cocktailObj){
+    generateInitialMarkUp(){
+        const content = `
+        <button class="randomise">Randomise Again!</button>
+        <section id="search-results"></section>`
+        this.addContentToRootDiv(content);
+        this.section = document.querySelector('#search-results');
+    }
+    generateFinalMarkUp(cocktailObj){
         const { ingredientsList } = cocktailObj;
         const cocktailTemplate = makeCocktailTemplate(cocktailObj);
-        const content = `<button class="randomise">Randomise Again!</button>${cocktailTemplate}`; 
+        this.section.innerHTML = cocktailTemplate;
         const ingredientsEl = document.querySelector('.ingredients-list');
         outputIngredients(ingredientsEl, ingredientsList); 
-        this.addContentToRootDiv(content);
-    }
-    addContentToRootDiv(content){
-        this.rootDiv.innerHTML = content;
     }
 }
 

@@ -1,8 +1,15 @@
 export const cocktailsState = {
-    randomCocktail: null,
-    whatCanIMakeCocktails: null,
-    easiestCocktails: null,
-    searchByIngredientCocktails: null,
-    searchByNameCocktails: null
+    randomCocktail: {
+        success: null,
+        error: null
+    },
+    allDrinks: {
+        success: null,
+        error: null
+    },
+    filteredDrinksByName: {
+        success: null,
+        error: null
+    }
 };
 

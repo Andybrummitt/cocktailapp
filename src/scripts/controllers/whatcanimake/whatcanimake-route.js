@@ -1,6 +1,6 @@
 import { addContentToRootDiv, fetchCocktail, addNoResultsText, addLoading, removeLoading, filterDrinksByInput, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle } from "../util-functions";
 import { makeCocktailTemplate } from '../controller-util-functions/cocktailtemplate.js';
-import { outputIngredients } from '../../views/views-util-functions/outputIngredients.js';
+import { outputIngredients } from '../../views/view-util-functions/outputIngredients.js';
 import { makeCocktailObj } from '../controller-util-functions/makeCocktailObj.js';
 import { getAllDrinks } from '../../model/getAllDrinks.js';
 import { displayIngredientOnDOM, createRemoveIngredientBtn, removeIngredientFromDOM } from './ingredients-display-functions.js';
