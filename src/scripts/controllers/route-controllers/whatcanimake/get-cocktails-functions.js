@@ -1,4 +1,4 @@
-import { isIngredient } from "../util-functions";
+import { isIngredient } from "../../util-functions";
 
 export const getIngredientsList = cocktail => {
     let ingredientsList = [];
@@ -17,9 +17,10 @@ export const calculateAmountOfIngredientsOff = (ingredientsList, parsedState) =>
     return amountOfIngredientsOff;
 };
 
-export const makeObjCocktailsByNumberOfIngredientsOff = () => {
+export const makeObjCocktailsByNumberOfIngredientsMissing = () => {
+    const MAX_INGREDIENTS_IN_API = 15;
     let obj = {};
-    for(let i = 0; i < 15; i++){
+    for(let i = 0; i < MAX_INGREDIENTS_IN_API; i++){
         obj[`${i}`] = [];
     };
     return obj;

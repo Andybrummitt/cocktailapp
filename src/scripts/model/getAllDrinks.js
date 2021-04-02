@@ -9,7 +9,7 @@ const getDrinksByLetter = async (letter) => {
     catch(err){
         cocktailsState.allDrinks.error = err;
         cocktailsState.allDrinks.success = null;
-        return;
+        return false;
     }
     const drinks = fetchedJson.drinks;
     return drinks;
@@ -20,8 +20,9 @@ export const getAllDrinks = async () => {
     const alphabet ='abcdefghijklmnopqrstuvwxyz';
     for(let letter of alphabet){
         const drinksByLetterArr = await getDrinksByLetter(letter);
-        drinksByLetterArr && allDrinks.push(drinksByLetterArr);
+        drinksByLetterArr && allDrinks.push(drinksByLetterArr)
     };
+    if(allDrinks.length === 0) return;
     cocktailsState.allDrinks.success = allDrinks.flat();
     cocktailsState.allDrinks.error = null;
 };

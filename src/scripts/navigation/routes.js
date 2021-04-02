@@ -1,9 +1,9 @@
-import { home } from '../controllers/home-route.js'
-import { whatCanIMake } from '../controllers/whatcanimake/whatcanimake-route.js'
-import { searchByIngredient } from '../controllers/searchbyingredient-route.js';
-import { randomCocktail } from '../controllers/randomCocktail.js';
-import { easiestCocktails } from '../controllers/easiestcocktail-route.js';
-import { searchByName } from '../controllers/searchbyname-route.js';
+import { home } from '../controllers/route-controllers/home-route.js'
+import { whatCanIMake } from '../controllers/route-controllers/whatcanimake/whatcanimake-route.js'
+import { searchByIngredient } from '../controllers/route-controllers/searchbyingredient-route.js';
+import { randomCocktail } from '../controllers/route-controllers/randomCocktail-route.js';
+import { easiestCocktails } from '../controllers/route-controllers/easiestcocktail-route.js';
+import { searchByName } from '../controllers/route-controllers/searchbyname-route.js';
 
 export const routes = {
     '/' : home,

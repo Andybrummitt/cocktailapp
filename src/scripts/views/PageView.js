@@ -6,8 +6,9 @@ import { outputIngredients } from "./view-util-functions/outputIngredients";
 export default class PageView {
     constructor(){
         this.rootDiv = document.querySelector('#root');
+        this.section = null;
     }
-    addLoading(section){
+    addLoading(){
         const loadingHTML =
         `<h1 class="loading-h1">Loading...</h1>
         <div id="logo-container" class="animate-loading">
@@ -17,30 +18,30 @@ export default class PageView {
                     <div id="bottom-glass"></div>
                 </div>
             </div>`  
-            section.innerHTML = loadingHTML;
+        this.section.innerHTML = loadingHTML;
     }
-    removeLoading(section){
-        section.innerHTML = '';
+    removeLoading(){
+        this.section.innerHTML = '';
     }
     addContentToRootDiv(content){
         this.rootDiv.innerHTML = content;
     }
-    generateErrorPage(err, section){
+    generateErrorPage(err){
         const div = document.createElement('div');
         div.innerHTML = `
             <p class="error-message">
             Sorry there appears to be a problem with your request<br>
             ${err}
             </p>`;
-        section.append(div);
+        this.section.append(div);
     }
-    displayCocktails(cocktails, section){
+    displayCocktails(cocktails){
         for(let cocktail of cocktails){
             const cocktailObj = makeCocktailObj(cocktail);
             const cocktailHTML = makeCocktailTemplate(cocktailObj);
             const article = document.createElement('article');
             article.innerHTML = cocktailHTML;
-            section.append(article);
+            this.section.append(article);
             const ingredientsEl = getIngredientsListElFromArticle(article);
             outputIngredients(ingredientsEl, cocktailObj.ingredientsList);
         };

@@ -1,6 +1,6 @@
-import  { getFilteredDrinksByName } from "../model/getFilteredDrinksByName.js";
-import { cocktailsState } from "../model/state.js";
-import SearchByNameView from "../views/view-searchByName.js";
+import { getFilteredDrinksByName } from "../../model/getFilteredDrinksByName.js";
+import { cocktailsState } from "../../model/state.js";
+import SearchByNameView from "../../views/view-searchByName.js";
 import { clearInputField } from "./searchbyingredient-route.js";
 
 const getFilteredDrinks = async (input) => {
@@ -9,21 +9,21 @@ const getFilteredDrinks = async (input) => {
     if(error !== null){
         return false;
     }
-    return filteredDrinks;
+    return { filteredDrinks, error };
 };
 
-const displayFilteredDrinks = (filteredDrinks) => {
+const displayFilteredDrinks = ({ filteredDrinks, error }) => {
     clearInputField();
-    if(filteredDrinks){
-        if(filteredDrinks.length < 1){
-            SearchByNameView.addNoResultsText(section);
+    if(error === null){
+        if(filteredDrinks === null || filteredDrinks.length < 1){
+            SearchByNameView.addNoResultsText();
             return;
         }
-        SearchByNameView.generateFinalMarkUp(filteredDrinks);
+        else SearchByNameView.generateFinalMarkUp(filteredDrinks);
     }
     else {
-        SearchByNameView.removeLoading(SearchByNameView.section)
-        SearchByNameView.generateErrorPage(cocktailsState.filteredDrinksByName.error, SearchByNameView.section);
+        SearchByNameView.removeLoading();
+        SearchByNameView.generateErrorPage(error);
     };
 };
 
@@ -33,6 +33,10 @@ export const searchByName = () => {
         e.preventDefault();
         SearchByNameView.addLoading(SearchByNameView.section);
         const inputValue = document.querySelector('#search-input').value;
+        if(inputValue === ''){
+            SearchByNameView.generateNoInputMssg();
+            return;
+        }
         getFilteredDrinks(inputValue)
             .then(filteredDrinks => displayFilteredDrinks(filteredDrinks));
     });

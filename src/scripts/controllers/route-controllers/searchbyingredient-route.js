@@ -1,7 +1,7 @@
-import { getAllDrinks } from '../model/getAllDrinks.js';
-import { cocktailsState } from "../model/state";
-import { clearField, filterDrinksByInput, fullyParseIngredient } from "./util-functions";
-import SearchByIngredientView from '../views/view-searchByIngredient.js';
+import { getAllDrinks } from '../../model/getAllDrinks.js';
+import { cocktailsState } from "../../model/state";
+import { clearField, filterDrinksByInput, fullyParseIngredient } from "../util-functions";
+import SearchByIngredientView from '../../views/view-searchByIngredient.js';
 
 const getFilteredDrinks = async (input) => {
     if(cocktailsState.allDrinks.success === null){
@@ -29,14 +29,14 @@ const displayFilteredDrinks = (filteredDrinks) => {
     clearInputField();
     if(filteredDrinks){
         if(filteredDrinks.length < 1){
-            SearchByIngredientView.addNoResultsText(section);
+            SearchByIngredientView.addNoResultsText();
             return;
         }
         SearchByIngredientView.generateFinalMarkUp(filteredDrinks);
     }
     else {
-        SearchByIngredientView.removeLoading(SearchByIngredientView.section);
-        SearchByIngredientView.generateErrorPage(cocktailsState.allDrinks.error, SearchByIngredientView.section);
+        SearchByIngredientView.removeLoading();
+        SearchByIngredientView.generateErrorPage(cocktailsState.allDrinks.error);
     };
 };
 
@@ -44,8 +44,12 @@ export const searchByIngredient = () => {
     SearchByIngredientView.generateInitialMarkUp('ingredient');
     SearchByIngredientView.form.addEventListener('submit', (e) => {
         e.preventDefault();
-        SearchByIngredientView.addLoading(SearchByIngredientView.section);
+        SearchByIngredientView.addLoading();
         const inputValue = document.querySelector('#search-input').value;
+        if(inputValue === ''){
+            SearchByIngredientView.generateNoInputMssg();
+            return;
+        }
         getFilteredDrinks(inputValue)
             .then(filteredDrinks => displayFilteredDrinks(filteredDrinks));
     });

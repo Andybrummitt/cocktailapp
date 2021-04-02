@@ -1,7 +1,7 @@
-import { isIngredient } from './util-functions.js';
-import { cocktailsState } from '../model/state.js';
-import { getAllDrinks } from '../model/getAllDrinks.js';
-import EasiestCocktailsView from '../views/view-easiestCocktails.js';
+import { isIngredient } from '../util-functions.js';
+import { cocktailsState } from '../../model/state.js';
+import { getAllDrinks } from '../../model/getAllDrinks.js';
+import EasiestCocktailsView from '../../views/view-easiestCocktails.js';
 
 const drinkObjPropertyIngredientIsPresent = objEntry => isIngredient(objEntry) && objEntry[1] !== null;
 
@@ -26,8 +26,8 @@ export const easiestCocktails = async () => {
     }
     const { success: allDrinks, error } = cocktailsState.allDrinks;
     if(error){
-        EasiestCocktailsView.removeLoading(EasiestCocktailsView.section)
-        EasiestCocktailsView.generateErrorPage(error, EasiestCocktailsView.error);
+        EasiestCocktailsView.removeLoading()
+        EasiestCocktailsView.generateErrorPage(error);
     }
     else {
         const drinksWithLessThan3Ingredients = getDrinksWithLessThan3Ingredients(allDrinks);

@@ -1,7 +1,3 @@
-import { domObj } from '../domObj';
-const { rootDiv, cocktailTitles, cocktailImgs, cocktailIngredients, cocktailInstructions } = domObj;
-
-const addContentToRootDiv = content => rootDiv.innerHTML = content;
 const getEl = id => document.querySelector(`#${id}`);
 
 const fetchCocktail = async (url) => {
@@ -45,12 +41,6 @@ const getIngredients = cocktail => {
     });
     return ingredientsObj;
 };
-
-
-
-const addToPage = (content, element) => element.textContent = content;
-const addImgToPage = (src, element) => element.src = src;
-
 const getContainerChildren = (id) => Array.from(document.querySelector(`#${id}`).children);
 
 const getElFromContainer = (arr, className) => arr.filter(elem => elem.classList.contains(className));
@@ -65,20 +55,6 @@ const hasClass = (elem, className) => elem.classList.contains(className);
 const addClassToEl = (elem, className) => elem.classList.add(className);
 const removeClassFromEl = (elem, className) => elem.classList.remove(className);
 
-const addLoading = section => {
-    const loadingHTML =
-    `<h1 class="loading-h1">Loading...</h1>
-    <div id="logo-container" class="animate-loading">
-            <div id="glass-container">
-                <div id="top-glass"></div>
-                <div id="middle-glass"></div>
-                <div id="bottom-glass"></div>
-            </div>
-        </div>`  
-        section.innerHTML = loadingHTML;
-};
-const removeLoading = section => section.innerHTML = '';
-
 const filterDrinksByInput = (parsedInput, allDrinks) => {
     return allDrinks.filter(drink => {
         let bool = false;
@@ -90,8 +66,6 @@ const filterDrinksByInput = (parsedInput, allDrinks) => {
         if(bool) return drink;
     });
 };
-
-const addNoResultsText = section => section.innerHTML = `<p class="error-message">Sorry, we can\'t seem to find what you\'re looking for</p>`;
 
 const clearField = input => input.value = '';
 
@@ -106,4 +80,10 @@ const getIngredientsListElFromArticle = (article) => {
     return articleChildren.filter(child => child.classList.contains('ingredients-list'))[0];
 }
 
-export { addContentToRootDiv, getEl, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, addToPage, addImgToPage, hasClass, addClassToEl, removeClassFromEl, addLoading, removeLoading, filterDrinksByInput, addNoResultsText, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle };
+const getIngredientString = (ingredient) => {
+    const COLON_INDEX = ingredient.textContent.indexOf(':');
+    return ingredient.textContent.slice(0, COLON_INDEX).toLowerCase();
+};
+
+export { getEl, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, hasClass, addClassToEl, removeClassFromEl, filterDrinksByInput, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle, getIngredientString };
+

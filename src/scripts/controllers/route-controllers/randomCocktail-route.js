@@ -1,7 +1,7 @@
-import { makeCocktailObj } from './controller-util-functions/makeCocktailObj.js'; 
-import { getRandomCocktail } from "../model/getRandomCocktail";
-import RandomCocktailView from '../views/view-randomCocktails.js';
-import { cocktailsState } from '../model/state.js';
+import { makeCocktailObj } from '../controller-util-functions/makeCocktailObj.js'; 
+import { getRandomCocktail } from "../../model/getRandomCocktail";
+import RandomCocktailView from '../../views/view-randomCocktails.js';
+import { cocktailsState } from '../../model/state.js';
 
 const addButtonListener = () => {
     const randomiseBtn = document.querySelector('.randomise');
@@ -18,7 +18,7 @@ export const randomCocktail = async () => {
         RandomCocktailView.generateFinalMarkUp(cocktailObj); 
     }
     else {
-        RandomCocktailView.generateErrorPage(error, RandomCocktailView.section);
+        RandomCocktailView.generateErrorPage(error);
     }
 };
 
