@@ -1,7 +1,7 @@
 .nav-container {
     height: 80px;
     width: 100vw;
-    background: $dark-blue;
+    background: $raspberry-pink;
     position: fixed;
     top: 0;
     left: 0;
@@ -10,20 +10,20 @@
 
 .title {
     font-family: $title-font;
-    color: $light-blue;
+    color: $happy-yellow;
     font-size: 2rem;
 }
 
 .title-dark {
     @extend .title;
-    color: $dark-blue;
+    color: $raspberry-pink;
     text-align: center;
     margin: 2rem 0;
 }
 
 .title a {
     text-decoration: none;
-    color: $light-blue;
+    color: $happy-yellow;
 }
 
 .title a:hover {
@@ -43,8 +43,8 @@
 #hb-container {
     height: 64px;
     width: 64px;
-    background: $dark-blue;
-    border: 2px solid $light-blue;
+    background: $raspberry-pink;
+    border: 2px solid $happy-yellow;
     border-radius: 0.5rem;
     position: relative;
     cursor: pointer;
@@ -56,18 +56,18 @@
 
 .menu-open :nth-child(1) {
     transform: translateY(15px) translateX(-50%) rotate(45deg);
-    background: $red;
+    background: white;
 }
 
 .menu-open :nth-child(3) {
     transform: translateY(-15px) translateX(-50%) rotate(-45deg);
-    background: $red;
+    background: white;
 }
 
 .bar {
     height: 6px;
     width: 48px;
-    background: $light-blue;
+    background: $happy-yellow;
     transition: 0.3s;
     border-radius: 0.5rem;
     position: absolute;
@@ -94,7 +94,7 @@
     top: 80px;
     left: 0;
     width: 100%;
-    background: $dark-blue;
+    background: $raspberry-pink;
     list-style-type: none;
     transform: translateX(0);
     transition: 0.35s;
@@ -114,12 +114,12 @@
     text-decoration: none;
     font-family: $caps-font;
     color: white;
-    border-top: 1px solid $light-blue;
+    border-top: 1px solid $happy-yellow;
 }
 
 .nav-link:hover, .nav-link:active {
     transition: 0.25s;
-    background: $red;
+    text-decoration: underline;
 }
 
 .hide-links {
@@ -135,7 +135,7 @@
         flex: 50%;
     }
     #nav-links a:nth-child(odd){
-        border-right: 1px solid $light-blue;
+        border-right: 1px solid $happy-yellow;
     }
 }
 
@@ -170,10 +170,10 @@
         width: 100%;
         @include flexCenter(column);
         list-style-type: none;
-        border-left: 1px solid $light-blue;
+        border-left: 1px solid $happy-yellow;
     }
     .nav-link a {
-        color: $light-blue;
+        color: $happy-yellow;
         display: inline-block;
         text-decoration: none;
         font-size: 1.3rem;

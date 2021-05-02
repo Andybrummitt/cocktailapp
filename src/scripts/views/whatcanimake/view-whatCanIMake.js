@@ -13,21 +13,35 @@ class WhatCanIMakeView extends PageView {
     generateInitialMarkUp(){
         const content = `
         <div id="whatcanimake-div">
-            <p>Add your ingredients below</p>
-            <form action="/" id="ingredients-form">
-                <input name="ingredient-input" placeholder="Add Ingredient" id="ingredient-input">
-                <button type="submit">Add Ingredient</button>
-            </form>
-            <ul class="your-ingredients"></ul>
-            <button id="whatcanimake-btn">What Can I Make?</button>
+                <p>Add your ingredients below</p>
+                <form action="/" id="ingredients-form">
+                    <input name="ingredient-input" placeholder="Add Ingredient" maxlength="20" id="ingredient-input">
+                    <button type="submit">Add Ingredient</button>
+                </form>
+                <div id="your-ingredients-container">
+                    <h4>Your ingredients:</h4>
+                    <ul class="your-ingredients"></ul>
+                </div>
+                <button id="whatcanimake-btn">What Can I Make?</button>
         </div>
         <section class="search-results"></section>
         `;
         this.addContentToRootDiv(content);
         this.section = document.querySelector('.search-results');
     }
+    generateSearchingForDrinksWithTitle(usersOwnIngredients){
+        const searchingForDrinksDiv = document.createElement('div');
+        searchingForDrinksDiv.classList.add('searching-with-ingredients-container')
+        searchingForDrinksDiv.innerHTML = `<h2>Searching for drinks with: </h2>
+        <ul>
+        ${usersOwnIngredients.map(ingredient => `<li>${ingredient}<i class="fas fa-check"></i></li>`).join('')}
+        </ul>`
+        this.section.append(searchingForDrinksDiv)
+    }
     generateFinalMarkUp(cocktailsByNumberOfIngredientsMissing, usersOwnIngredients){
         this.removeLoading(this.section);
+        this.generateSearchingForDrinksWithTitle(usersOwnIngredients);
+        //  put function here to put showing cocktails including vodka etc.
         for(let amountOfIngredientsMissing in cocktailsByNumberOfIngredientsMissing){
             if(amountOfIngredientsMissing > 0 && cocktailsByNumberOfIngredientsMissing[amountOfIngredientsMissing].length > 0){
                 this.displayMissingIngredientsHeading(amountOfIngredientsMissing);
@@ -65,9 +79,13 @@ class WhatCanIMakeView extends PageView {
         this.section.append(p);
         setTimeout(() => p.remove(), 3000)
     }
-    generateNoCocktailsMessage(){
-        const noCocktailsHTML = `<p class="error-message missing-ingredients-title">Sorry it doesn't seem like you have <b>all</b> the ingredients for any cocktails</p>`
-        this.section.innerHTML = noCocktailsHTML;
+    generateNoResultsMessage(){
+        const noResultsMessage = `<p class="error-message">Our search has not returned any cocktails with those ingredients</p>`;
+        this.section.innerHTML = noResultsMessage;
+    }
+    generateMissingIngredientsMessage(){
+        const missingIngredientsHTML = `<p class="error-message missing-ingredients-title">It doesn't seem like you have <b>all</b> the ingredients for any cocktails</p>`
+        this.section.innerHTML = missingIngredientsHTML;
     }
     displayMissingIngredientsHeading(amountOff){
         const h3 = document.createElement('h3');

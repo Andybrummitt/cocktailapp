@@ -13,8 +13,8 @@
 }
 
 .cocktail-container {
-    background:  #68C5DB;
-    width: 90%;
+    background: $happy-yellow;
+    width: 75%;
     margin: auto;
     @include flexCenter(column);
     padding: 1rem;
@@ -33,9 +33,20 @@
     margin-bottom: 0.3rem;
 }
 
+.cocktail-container h2 {
+    margin-bottom: 0.5rem;
+}
+
 .cocktail-container i {
     font-size: 1.2rem;
     margin-left: 0.5rem;
+}
+
+.instructions {
+    background: white;
+    width: 90%;
+    padding: 0.5rem;
+    // font-size: 1.2rem;
 }
 
 .alcoholic-flag {
@@ -61,6 +72,18 @@
 .ingredients-list li {
     border-bottom: 1px dashed blue;
     padding: 0.2rem;
-    font-size: 1.2rem;
+    // font-size: 1.2rem;
     font-family: $cursive-font;
+}
+
+@media screen and (min-width: 500px){
+    .cocktail-container {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (min-width: 800px){
+    .cocktail-container {
+        font-size: 1.4rem;
+    }
 }

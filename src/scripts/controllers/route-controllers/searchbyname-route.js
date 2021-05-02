@@ -1,6 +1,7 @@
 import { getFilteredDrinksByName } from "../../model/getFilteredDrinksByName.js";
 import { cocktailsState } from "../../model/state.js";
 import SearchByNameView from "../../views/view-searchByName.js";
+import isText from "../isText.js";
 import { clearInputField } from "./searchbyingredient-route.js";
 
 const getFilteredDrinks = async (input) => {
@@ -37,8 +38,12 @@ export const searchByName = () => {
             SearchByNameView.generateNoInputMssg();
             return;
         }
+        if(!isText(inputValue)){
+            SearchByNameView.generateSpecialCharacterError();
+            clearInputField();
+            return;
+        }
         getFilteredDrinks(inputValue)
-            .then(filteredDrinks => displayFilteredDrinks(filteredDrinks));
+            .then(filteredDrinks => displayFilteredDrinks(filteredDrinks));    
     });
 };
-

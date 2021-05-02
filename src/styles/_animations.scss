@@ -33,7 +33,7 @@
 #liquid {
     height: 0;
     width: 2px;
-    background: $dark-blue;
+    background: $happy-yellow;
     position: absolute;
     top: 0;
     border-radius: 0.1rem;
@@ -58,7 +58,7 @@
 }
 
 #top-glass {
-    background: $dark-blue;
+    background: $happy-yellow;
     position: absolute;
     border-bottom-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
@@ -74,7 +74,7 @@
     width: 80%;
     left: 50%;
     transform: translateX(-50%);
-    background: $dark-blue;
+    background: $happy-yellow;
     position: absolute;
     bottom: 0;
     border-top-left-radius: 1rem;
@@ -86,7 +86,7 @@
     width: 8%;
     left: 50%;
     transform: translateX(-50%);
-    background: $dark-blue;
+    background: $happy-yellow;
     position: absolute;
     bottom: 5%;
 }
@@ -103,7 +103,7 @@
 #title-overlay {
     animation-duration: 4s;
     animation-fill-mode: forwards;
-    background: white;
+    background: $background-blue;
     padding: 0.5rem;
     color: transparent;
     position: absolute;
@@ -113,9 +113,10 @@
 
 #title {
     position: absolute;
-    top: 65%;
-    color: $dark-blue;
-    font-family: $title-font;
+    top: 70%;
+    color: $happy-yellow;
+    font-family: 'Numans', sans-serif;
+    font-size: 1.7rem;
     z-index: -2;
 }
 
@@ -133,7 +134,7 @@
     @include flexCenter(column);
     height: 300px;
     width: 300px;
-    background: white;
+    background: $background-blue;
     margin: 5rem auto;
     z-index: -2;
 }
@@ -141,7 +142,7 @@
 //  ----------------------- LOADING ANIMATION ------------------------  
 
 .loading-h1 {
-    color: $dark-blue;
+    color: $happy-yellow;
     font-family: $caps-font;
     text-align: center;
 }

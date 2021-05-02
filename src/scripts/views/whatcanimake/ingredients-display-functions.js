@@ -7,9 +7,11 @@ class IngredientsDisplayHandler {
     }
     createRemoveIngredientBtn(){
         const button = document.createElement('button');
-        button.textContent = 'Remove';
         button.classList.add('remove-ingredient-btn');
-        return button;
+        const icon = document.createElement('i');
+        icon.classList.add('fas', 'fa-trash-alt');
+        button.append(icon);
+        return icon;
     }
     createElementsForIngredient(){
         const li = document.createElement('li');
@@ -28,7 +30,7 @@ class IngredientsDisplayHandler {
     }
     ingredientAlreadyAddedMessage(){
         const section = document.querySelector('.search-results');
-        section.innerHTML = `<p class="error-message">You have already added that ingredient</p>`;
+        section.innerHTML = `<p class="error-message">You have already added that ingredient</p><i class="far fa-trash-alt"></i>`;
         setTimeout(() => section.innerHTML = '', 3000);
     }
 }

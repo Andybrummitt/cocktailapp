@@ -9,7 +9,7 @@ import ingredientsState from './ingredients-state.js';
 const displayCocktails = (cocktailsByNumberOfIngredientsMissing, usersOwnIngredients) => {
     const cocktailsWithNoIngredientsMissing = cocktailsByNumberOfIngredientsMissing[0];
     if(cocktailsWithNoIngredientsMissing.length < 1){
-        WhatCanIMakeView.generateNoCocktailsMessage();
+        WhatCanIMakeView.generateMissingIngredientsMessage();
     }
         WhatCanIMakeView.generateFinalMarkUp(cocktailsByNumberOfIngredientsMissing, usersOwnIngredients);
 };
@@ -38,10 +38,14 @@ const handleSubmit = async ingredients => {
         }
         else {
         const filteredCocktails = getCocktailsWithUsersIngredients(parsedIngredients, filterDrinksByInput, allDrinks);
+        if(filteredCocktails.length < 1){
+            WhatCanIMakeView.generateNoResultsMessage();
+            return;
+        }
         const cocktailsByNumberOfIngredientsMissing = storeGeneratedCocktailsByNumberOfIngredientsUserIsMissing(filteredCocktails, parsedIngredients);
         //  REMOVE LOADING ANIMATION AND DISPLAY COCKTAILS TO USER
         const ingredientList = parsedIngredients.map(ingredient => ingredient.toLowerCase());
-        displayCocktails(cocktailsByNumberOfIngredientsMissing, ingredientList) 
+        displayCocktails(cocktailsByNumberOfIngredientsMissing, ingredientList);
         }
     }
     else WhatCanIMakeView.generateNoIngredientsError();
@@ -62,3 +66,5 @@ export const whatCanIMake = () => {
     domElements.ingredientsForm.addEventListener('submit', (ev) => handleIngredientInputOnSubmit(domElements, ev));
     domElements.submitBtn.addEventListener('click', () => handleSubmit(ingredientsState.ingredients));
 };
+
+

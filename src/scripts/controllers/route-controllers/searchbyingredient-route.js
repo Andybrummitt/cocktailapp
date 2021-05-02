@@ -2,6 +2,7 @@ import { getAllDrinks } from '../../model/getAllDrinks.js';
 import { cocktailsState } from "../../model/state";
 import { clearField, filterDrinksByInput, fullyParseIngredient } from "../util-functions";
 import SearchByIngredientView from '../../views/view-searchByIngredient.js';
+import isText from '../isText.js';
 
 const getFilteredDrinks = async (input) => {
     if(cocktailsState.allDrinks.success === null){
@@ -44,8 +45,13 @@ export const searchByIngredient = () => {
     SearchByIngredientView.generateInitialMarkUp('ingredient');
     SearchByIngredientView.form.addEventListener('submit', (e) => {
         e.preventDefault();
-        SearchByIngredientView.addLoading();
         const inputValue = document.querySelector('#search-input').value;
+        if(!isText(inputValue)){
+            SearchByIngredientView.generateSpecialCharacterError();
+            clearInputField();
+            return;
+        }
+        SearchByIngredientView.addLoading();
         if(inputValue === ''){
             SearchByIngredientView.generateNoInputMssg();
             return;

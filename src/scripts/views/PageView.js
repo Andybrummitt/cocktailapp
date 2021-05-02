@@ -35,6 +35,18 @@ export default class PageView {
             </p>`;
         this.section.append(div);
     }
+    generateSpecialCharacterError(){
+        const div = document.createElement('div');
+        div.innerHTML = `<p class="error-message">Your input contains special characters<br></p>`;
+        this.section.append(div);
+        setTimeout(() => div.remove(), 3000)
+    }
+    inputError(inputField){
+        if(!inputField.classList.contains('input-error')){
+            inputField.classList.add('input-error');
+            setTimeout(() => inputField.classList.remove('input-error'), 1000);
+        }
+    }
     displayCocktails(cocktails){
         for(let cocktail of cocktails){
             const cocktailObj = makeCocktailObj(cocktail);

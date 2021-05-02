@@ -1,7 +1,8 @@
 import ingredientsState from "./ingredients-state";
 import IngredientsDisplayHandler from '../../../views/whatcanimake/ingredients-display-functions.js';
 import { clearField } from "../../util-functions";
-
+import isText from "../../isText";
+import WhatCanIMakeView from '../../../views/whatcanimake/view-whatCanIMake.js';
 
 export const addRemoveButtonFunctionality = (button, ingredient) => {
     button.addEventListener('click', e => {
@@ -23,6 +24,11 @@ export const handleIngredientInputOnSubmit = ({inputField, ul, ingredientsForm},
     ev.preventDefault();
         const inputValue = inputField.value;
         //  FORM VALIDATION
+        if(!isText(inputValue)){
+            WhatCanIMakeView.inputError(inputField)
+            clearField(inputField);
+            return;
+        }
         if(inputValue && !ingredientsState.ingredients.includes(inputValue)){
             addIngredient(inputField, ul);
         }
