@@ -38,7 +38,7 @@ class Emoji {
             xCoord = Math.random() * columnWidth;
         }
         else {
-            xCoord = (Math.random() * columnWidth) + cocktailContainerWidth + columnWidth - rightColumnPadding;
+            xCoord = (Math.random() * columnWidth) + cocktailContainerWidth + columnWidth;
         }
         return xCoord;
     }
@@ -60,9 +60,7 @@ class Emoji {
         this.yCoord = Math.round(this.yCoord) - this.speed;
         this.draw();
     }
-}
-
-
+};
 
 const emojis = ['🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🍈','🍒','🍑','🥭','🍍','🥥','🥝'];
 
@@ -145,7 +143,7 @@ checkbox.addEventListener('click', () => {
 const resizeCanvasSettings = () => {
     canvas.width = window.innerWidth;
     let fontSize = Math.min(45, Math.floor(window.innerWidth/15));
-    cocktailContainerWidth = 0.85 * canvas.width;
+    cocktailContainerWidth = Math.min(800, 0.85 * canvas.width);
     columnWidth = (canvas.width - cocktailContainerWidth) / 2;
     rightColumnPadding = 0.08 * canvas.width;
     ctx.font = `${fontSize}px Arial`;
