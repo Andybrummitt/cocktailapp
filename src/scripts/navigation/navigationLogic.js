@@ -23,6 +23,6 @@ const addNavigationToLinks = (links, onNavigate) => {
 addNavigationToLinks(navLinks, onNavigate);
 
 window.onpopstate = () => {
-    ingredientsState.ingredients = [];
     loadPage(window.location.pathname);
+    ingredientsState.ingredients = [];
 };

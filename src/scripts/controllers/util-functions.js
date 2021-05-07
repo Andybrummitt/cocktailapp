@@ -1,18 +1,21 @@
 const getEl = id => document.querySelector(`#${id}`);
 
-const fetchCocktail = async (url) => {
+const fetchCocktailAndSetState = async (url, stateProp) => {
     try {
-        let response = await fetch(url);
+        const response = await fetch(url);
+        const jsonResponse = await response.json();
         if(response.ok){
-            const jsonResponse = await response.json();
-            return jsonResponse;
+            stateProp.success = jsonResponse;
+            stateProp.error = null;
         }
-        else if(response.status === 404){
-                throw new Error('404 Not Found');
-                };       
-        } 
+        else {
+            stateProp.error = jsonResponse.error;
+            stateProp.success = null;
+        }
+    }
     catch(err){
-        throw err;
+        stateProp.error = err;
+        stateProp.success = null;
     } 
 }
 
@@ -85,5 +88,5 @@ const getIngredientString = (ingredient) => {
     return ingredient.textContent.slice(0, COLON_INDEX).toLowerCase();
 };
 
-export { getEl, fetchCocktail, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, hasClass, addClassToEl, removeClassFromEl, filterDrinksByInput, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle, getIngredientString };
+export { getEl, fetchCocktailAndSetState, getTitle, isAlcoholic, getImage, getInstructions, getIngredients, compose, getImgEl, getListEl, getContainerChildren, getInstructionsEl, getTitleEl, getIsAlcoholicEl, hasClass, addClassToEl, removeClassFromEl, filterDrinksByInput, clearField, fullyParseIngredient, isIngredient, getIngredientsListElFromArticle, getIngredientString };
 

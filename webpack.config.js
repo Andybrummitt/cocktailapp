@@ -1,11 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const { HotModuleReplacementPlugin } = require('webpack');
 
 module.exports = {
     devtool: 'eval-source-map',
-    mode: 'development',
+    mode: 'production',
     entry: './src/scripts/index.js',
     output: {
         filename: 'bundle.js',
@@ -54,7 +53,6 @@ module.exports = {
             template: './src/index.html',
             inject: 'head',
             filename: 'index.html',
-            // favicon: './src/imgs/favicon.png'
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css',

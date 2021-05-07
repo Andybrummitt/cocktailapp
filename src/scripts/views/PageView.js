@@ -31,7 +31,7 @@ export default class PageView {
         div.innerHTML = `
             <p class="error-message">
             Sorry there appears to be a problem with your request<br>
-            ${err}
+            ${err.status}: ${err.message}
             </p>`;
         this.section.append(div);
     }

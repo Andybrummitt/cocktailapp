@@ -7,9 +7,6 @@ import { clearInputField } from "./searchbyingredient-route.js";
 const getFilteredDrinks = async (input) => {
     await getFilteredDrinksByName(input);
     const { success: filteredDrinks, error } = cocktailsState.filteredDrinksByName;
-    if(error !== null){
-        return false;
-    }
     return { filteredDrinks, error };
 };
 

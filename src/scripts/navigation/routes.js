@@ -6,8 +6,8 @@ import { easiestCocktails } from '../controllers/route-controllers/easiestcockta
 import { searchByName } from '../controllers/route-controllers/searchbyname-route.js';
 
 export const routes = {
-    '/' : whatCanIMake,
-    '/whatcanimake': home,
+    '/' : home,
+    '/whatcanimake': whatCanIMake,
     '/searchbyingredient': searchByIngredient,
     '/searchbyname': searchByName,
     '/easiestcocktails': easiestCocktails,

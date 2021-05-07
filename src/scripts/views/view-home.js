@@ -8,7 +8,7 @@ class HomeView extends PageView {
     generateLogo(){
         const content = `
             <div class="home-container">
-                <p class="welcome-msg">Welcome to Cocktails!</p>
+                <p class="welcome-msg">Welcome to Mixin!</p>
                 <div id="animation-title-container">
                     <div id="logo-container" class="animate-home">
                         <div id="glass-container">
